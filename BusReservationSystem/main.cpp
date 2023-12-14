@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <vector>
 #include <string>
@@ -35,23 +34,19 @@ int main()
 		{
 		case '1':
 			BusInformation(Data);
-			// system("cls");
 			break;
 		case '2':
 			Reservation(Data);
-			// system("cls");
 			break;
 		case '3':
 			ShowInformation(Data);
-			// system("cls");
 			break;
 		case '4':
 			cout << endl << "Auf Wiedersehen!" << endl;
 			break;
 		default:
-			cout << "Du hast einen Fehler bei der Auswahl gemacht" << endl;
+			cout << "Du hast einen Fehler gemacht" << endl;
 			cout << "Bitte versuch noch mal" << endl;
-			system("cls");
 		}
 	}
 }
@@ -119,7 +114,7 @@ void Reservation(vector<Bus>& data)
 {
 	string depCity, arCity;
 	string time;
-	int bno, sno;
+	int bno, sno, treffer = 0;
 
 	cout << "Departure City: ";
 	getline(cin, depCity);
@@ -152,6 +147,7 @@ void Reservation(vector<Bus>& data)
 				{
 					if (tmp[j].departureTime.substr(0, 2) == time.substr(0, 2))
 					{
+						treffer++;
 						data[i].printBusSeatStatus(tmp[j].index);
 					}
 				}
@@ -160,34 +156,41 @@ void Reservation(vector<Bus>& data)
 		}
 	}
 
-	cout << endl;
-	cout << "Enter the Bus' number you want to take:  ";
-	cin >> bno;
-	cout << endl << "Enter the Seat's number you want to reserve:  ";
-	cin >> sno;
-	for (int i = 0; i < data.size(); i++)
+	if (treffer != 0)
 	{
-
-		if (data[i].getBusnumber() == bno)
+		cout << endl;
+		cout << "Enter the Bus' number you want to take:  ";
+		cin >> bno;
+		cout << endl << "Enter the Seat's number you want to reserve:  ";
+		cin >> sno;
+		for (int i = 0; i < data.size(); i++)
 		{
-			vector<BusSubInfo> tmp = data[i].getBusSubInfo();
-			for (int j = 0; j < tmp.size(); j++)
+
+			if (data[i].getBusnumber() == bno)
 			{
-				if (data[i].getDC() == depCity)
+				vector<BusSubInfo> tmp = data[i].getBusSubInfo();
+				for (int j = 0; j < tmp.size(); j++)
 				{
-					if (data[i].getAC() == arCity)
+					if (data[i].getDC() == depCity)
 					{
-						if (tmp[j].departureTime.substr(0, 2) == time.substr(0, 2))
+						if (data[i].getAC() == arCity)
 						{
-							data[i].setBusSeatStatus(tmp[j].index, sno, true);
-							data[i].printBusSeatStatus(tmp[j].index);
+							if (tmp[j].departureTime.substr(0, 2) == time.substr(0, 2))
+							{
+								data[i].setBusSeatStatus(tmp[j].index, sno, true);
+								data[i].printBusSeatStatus(tmp[j].index);
+							}
 						}
 					}
+
 				}
 
 			}
-
 		}
+	}
+	else
+	{
+		cout << endl << "no buses available for your departure time" << endl;
 	}
 
 	cout << endl << "Continue? e -> 'Exit' c -> 'Continue' >> ";
