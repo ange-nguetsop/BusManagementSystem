@@ -5,7 +5,7 @@
 #include "Bus.h"
 
 using namespace std;
-void BusInformation(vector<Bus>& data);
+void AddBusInformation(vector<Bus>& data);
 void ShowInformation(vector<Bus>& data);
 void Reservation(vector<Bus>& data);
 char choice = 'c';
@@ -33,7 +33,7 @@ int main()
 		switch (choice)
 		{
 		case '1':
-			BusInformation(Data);
+			AddBusInformation(Data);
 			break;
 		case '2':
 			Reservation(Data);
@@ -51,7 +51,7 @@ int main()
 	}
 }
 
-void BusInformation(vector<Bus>& data)
+void AddBusInformation(vector<Bus>& data)
 {
 	Bus b;
 	string tmp, tmp1;
@@ -96,7 +96,6 @@ void BusInformation(vector<Bus>& data)
 	system("cls");
 }
 
-
 void ShowInformation(vector<Bus>& data)
 {
 	cout << "---------------------------------------------------------------------------" << endl;
@@ -116,9 +115,9 @@ void Reservation(vector<Bus>& data)
 	string time;
 	int bno, sno, treffer = 0;
 
-	cout << "Departure City: ";
+	cout << "Enter Departure City: ";
 	getline(cin, depCity);
-	cout << endl << "Arrival City: ";
+	cout << "Enter Arrival City: ";
 	getline(cin, arCity);
 	for (int i = 0; i < data.size(); i++)
 	{

@@ -137,6 +137,8 @@ void Bus::printBusSeatStatus(int index)
 	cout << "Arrival city: " << arrivalCity << endl;
 	cout << "Departure time" << "\t\tArrival Time" << endl;
 	cout << busSubInfo[index].departureTime << "\t\t          " << busSubInfo[index].arrivalTime << endl;
+	cout << "Seat Status" << endl;
+	cout << "-----------------------------------------------------------------------" << endl;
 	for (int j = 0; j < busSubInfo[index].seatNumber; j++)
 	{
 		std::cout << std::setfill('0') << std::setw(2) << j + 1 << ":" << (busSubInfo[index].seatStatus[j] ? " reserviert\t" : " frei\t");
